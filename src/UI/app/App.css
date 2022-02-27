@@ -1,0 +1,23 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ImagesContainer {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.select {
+    padding: 10px;
+    text-align: center;
+}
+
+.select span {
+    padding-left: 7px;
+}
