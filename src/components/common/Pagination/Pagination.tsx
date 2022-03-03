@@ -5,7 +5,7 @@ type PageCountPropsType = {
     totalItemsCount: number
     currentPage: number
     pageSize: number
-    onPageChanged: (p: number) => void
+    onCurrentPageClick: (page: number) => void
     portionSize: number
 }
 
@@ -13,7 +13,7 @@ export default function Pagination({
     totalItemsCount,
     currentPage,
     pageSize,
-    onPageChanged,
+    onCurrentPageClick,
     portionSize,
 }: PageCountPropsType) {
     let pagesCount = Math.ceil(totalItemsCount / pageSize)
@@ -60,7 +60,7 @@ export default function Pagination({
                             }
                             key={p}
                             onClick={() => {
-                                onPageChanged(p)
+                                onCurrentPageClick(p)
                             }}
                         >
                             <span>{p}</span>

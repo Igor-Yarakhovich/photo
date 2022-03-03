@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppRootStateType } from 'redux/store'
 
 import { Preloader } from 'components/common/Preloader/Preloader'
-import Pagination from 'components/common/Pagination/Pagination'
 
 import { ImageType, RequestStatusType } from 'types'
 import { fetchImagesTC } from 'redux/middlewares/fetchImages'
@@ -15,6 +14,7 @@ import {
     setImagesAC,
     setPageSizeAC,
 } from 'redux/actions'
+import Pagination from 'components/common/Pagination/Pagination'
 
 function App() {
     const images = useSelector<AppRootStateType, Array<ImageType>>(
@@ -58,7 +58,7 @@ function App() {
         }
     }
 
-    const onPageChanged = (pageNumber: number) => {
+    const onCurrentPageClick = (pageNumber: number) => {
         dispatch(setCurrentPageAC(pageNumber))
         dispatch(setPageSizeAC(pageSize))
     }
@@ -113,7 +113,7 @@ function App() {
                 totalItemsCount={newImages.length}
                 currentPage={currentPage}
                 pageSize={pageSize}
-                onPageChanged={onPageChanged}
+                onCurrentPageClick={onCurrentPageClick}
                 portionSize={portionSize}
             />
         </div>
