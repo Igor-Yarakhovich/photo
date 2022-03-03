@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import 'app/App.css'
 import { Image } from 'components/image/Image'
 import { useDispatch, useSelector } from 'react-redux'
@@ -19,6 +19,7 @@ import {
     selectSelectedImages,
     selectStatus,
 } from 'redux/selectors'
+import { LoadingStatus } from 'enums'
 
 function App() {
     const images = useSelector(selectImages)
@@ -41,37 +42,49 @@ function App() {
 
     const skip = pageSize * (currentPage - 1)
 
-    const portion = selectedImages.filter(
+    const availableImages = selectedImages.filter(
         (image, index) => index + 1 > skip && index < skip + pageSize
     )
 
-    const onClickSelected = (id: number) => {
-        if (id) {
-            dispatch(setImagesAC(images.filter((i) => i.albumId === id)))
+    const onSelectChange = (event: ChangeEvent<HTMLSelectElement>): void => {
+        const changedId = Number(event.currentTarget.value)
+
+        if (changedId) {
+            const filteredImages = images.filter(
+                ({ albumId }) => albumId === changedId
+            )
+
+            dispatch(setImagesAC(filteredImages))
         } else {
             dispatch(setImagesAC(images))
         }
     }
 
-    const onCurrentPageClick = (pageNumber: number) => {
-        dispatch(setCurrentPageAC(pageNumber))
-        dispatch(setPageSizeAC(pageSize))
-    }
+    const handleCurrentPageClick = useCallback(
+        (pageNumber: number): void => {
+            dispatch(setCurrentPageAC(pageNumber))
+            dispatch(setPageSizeAC(pageSize))
+        },
+        [pageSize, dispatch]
+    )
 
-    const deleteImageCallback = (imageId: number) => {
-        dispatch(deleteImageAC(imageId))
-    }
+    const handleDeleteButtonImageClick = useCallback(
+        (imageId: number): void => {
+            dispatch(deleteImageAC(imageId))
+        },
+        [dispatch]
+    )
 
-    if (status === 'loading') {
-        return <Preloader />
-    }
+    const portionSize = width > 767 ? 10 : 5
 
     const ids = images.map((i) => i.albumId)
     const uniqId = ids.filter((i, index) => {
         return ids.indexOf(i) === index
     })
 
-    const portionSize = width > 767 ? 10 : 5
+    if (status === LoadingStatus.Loading) {
+        return <Preloader />
+    }
 
     return (
         <div className="App">
@@ -81,7 +94,7 @@ function App() {
                     <select
                         defaultValue=""
                         name="select"
-                        onChange={(e) => onClickSelected(+e.target.value)}
+                        onChange={onSelectChange}
                     >
                         <option value="">All</option>
                         {uniqId.map((albumId) => (
@@ -93,11 +106,11 @@ function App() {
                 </span>
             </div>
             <div className="ImagesContainer">
-                {portion.map((img) => {
+                {availableImages.map((img) => {
                     return (
                         <Image
                             img={img}
-                            deleteImageCallback={deleteImageCallback}
+                            deleteImageCallback={handleDeleteButtonImageClick}
                             key={img.id}
                         />
                     )
@@ -108,7 +121,7 @@ function App() {
                 totalItemsCount={selectedImages.length}
                 currentPage={currentPage}
                 pageSize={pageSize}
-                onCurrentPageClick={onCurrentPageClick}
+                onCurrentPageClick={handleCurrentPageClick}
                 portionSize={portionSize}
             />
         </div>
