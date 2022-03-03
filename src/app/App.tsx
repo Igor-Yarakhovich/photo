@@ -4,8 +4,8 @@ import { Image } from 'components/image/Image'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppRootStateType } from 'redux/store'
 
-import { Preloader } from 'common/Preloader/Preloader'
-import Pagination from 'common/Pagination/Pagination'
+import { Preloader } from 'components/common/Preloader/Preloader'
+import Pagination from 'components/common/Pagination/Pagination'
 
 import { ImageType, RequestStatusType } from 'types'
 import { fetchImagesTC } from 'redux/middlewares/fetchImages'

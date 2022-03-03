@@ -1,6 +1,6 @@
 import React from 'react'
-import spinner from './preloader.gif'
-import styles from './Preloader.module.css'
+import spinner from 'components/common/Preloader/preloader.gif'
+import styles from 'components/common/Preloader/Preloader.module.css'
 
 export let Preloader = () => {
     return (

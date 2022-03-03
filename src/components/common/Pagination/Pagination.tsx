@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import styles from './Pagination.module.css'
+import styles from 'components/common/Pagination/Pagination.module.css'
 
 type PageCountPropsType = {
     totalItemsCount: number

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styles from 'components/image/Image.module.css'
-import Modal from 'common/Modal/Modal'
+import Modal from 'components/common/Modal/Modal'
 import { ImageType } from 'types'
 
 type ImagePropsType = {
