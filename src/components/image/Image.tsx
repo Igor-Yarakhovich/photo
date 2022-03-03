@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { ImageType } from 'BLL/redux/imagesReducer'
-import styles from './Image.module.css'
+import styles from 'components/image/Image.module.css'
 import Modal from 'common/Modal/Modal'
+import { ImageType } from 'types'
 
 type ImagePropsType = {
     img: ImageType

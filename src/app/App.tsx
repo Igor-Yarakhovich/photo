@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from 'react'
-import './App.css'
-import { Image } from '../components/image/Image'
+import 'app/App.css'
+import { Image } from 'components/image/Image'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppRootStateType } from 'BLL/redux/store'
+import { AppRootStateType } from 'redux/store'
 
 import { Preloader } from 'common/Preloader/Preloader'
-import Pagination from '../../common/Pagination/Pagination'
+import Pagination from 'common/Pagination/Pagination'
+
+import { ImageType, RequestStatusType } from 'types'
+import { fetchImagesTC } from 'redux/middlewares/fetchImages'
 import {
     deleteImageAC,
-    fetchImagesTC,
-    ImageType,
-    RequestStatusType,
     setCurrentPageAC,
     setImagesAC,
     setPageSizeAC,
-} from 'BLL/redux/imagesReducer'
+} from 'redux/actions'
 
 function App() {
     const images = useSelector<AppRootStateType, Array<ImageType>>(
         (state) => state.imagesReducer.images
     )
     const newImages = useSelector<AppRootStateType, Array<ImageType>>(
-        (state) => state.imagesReducer.newImages
+        (state) => state.imagesReducer.selectedImages
     )
     const status = useSelector<AppRootStateType, RequestStatusType>(
         (state) => state.imagesReducer.status
