@@ -2,11 +2,8 @@ import React, { useEffect, useState } from 'react'
 import 'app/App.css'
 import { Image } from 'components/image/Image'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppRootStateType } from 'redux/store'
 
 import { Preloader } from 'components/common/Preloader/Preloader'
-
-import { ImageType, RequestStatusType } from 'types'
 import { fetchImagesTC } from 'redux/middlewares/fetchImages'
 import {
     deleteImageAC,
@@ -15,38 +12,36 @@ import {
     setPageSizeAC,
 } from 'redux/actions'
 import Pagination from 'components/common/Pagination/Pagination'
+import {
+    selectCurrentPage,
+    selectImages,
+    selectPageSize,
+    selectSelectedImages,
+    selectStatus,
+} from 'redux/selectors'
 
 function App() {
-    const images = useSelector<AppRootStateType, Array<ImageType>>(
-        (state) => state.imagesReducer.images
-    )
-    const newImages = useSelector<AppRootStateType, Array<ImageType>>(
-        (state) => state.imagesReducer.selectedImages
-    )
-    const status = useSelector<AppRootStateType, RequestStatusType>(
-        (state) => state.imagesReducer.status
-    )
-    const currentPage = useSelector<AppRootStateType, number>(
-        (state) => state.imagesReducer.currentPage
-    )
-    const pageSize = useSelector<AppRootStateType, number>(
-        (state) => state.imagesReducer.pageSize
-    )
+    const images = useSelector(selectImages)
+    const selectedImages = useSelector(selectSelectedImages)
+    const status = useSelector(selectStatus)
+    const pageSize = useSelector(selectPageSize)
+    const currentPage = useSelector(selectCurrentPage)
+
+    const [width, setWidth] = useState(window.innerWidth)
 
     const dispatch = useDispatch()
 
-    const [width, setWidth] = useState(window.innerWidth)
-    window.addEventListener('resize', () => {
-        setWidth(window.innerWidth)
-    })
-
     useEffect(() => {
+        window.addEventListener('resize', () => {
+            setWidth(window.innerWidth)
+        })
+
         dispatch(fetchImagesTC())
     }, [dispatch])
 
     const skip = pageSize * (currentPage - 1)
 
-    const portion = newImages.filter(
+    const portion = selectedImages.filter(
         (image, index) => index + 1 > skip && index < skip + pageSize
     )
 
@@ -110,7 +105,7 @@ function App() {
             </div>
 
             <Pagination
-                totalItemsCount={newImages.length}
+                totalItemsCount={selectedImages.length}
                 currentPage={currentPage}
                 pageSize={pageSize}
                 onCurrentPageClick={onCurrentPageClick}

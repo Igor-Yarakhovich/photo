@@ -1,9 +1,9 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux'
 import thunkMiddleware from 'redux-thunk'
-import { image } from 'redux/reducers/image'
+import { imageReducer } from 'redux/reducers/imageReducer'
 
 const rootReducer = combineReducers({
-    imagesReducer: image,
+    imageReducer,
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))

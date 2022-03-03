@@ -12,7 +12,7 @@ const initialState = {
 
 type InitialStateType = typeof initialState
 
-export const image = (
+export const imageReducer = (
     state: InitialStateType = initialState,
     action: ActionType
 ): InitialStateType => {
