@@ -1,56 +1,56 @@
-import React, {CSSProperties} from 'react';
+import React, { CSSProperties } from 'react'
 
 interface IModal {
-    enableBackground?: boolean;
-    backgroundStyle?: CSSProperties;
-    backgroundOnClick?: () => void;
+    enableBackground?: boolean
+    backgroundStyle?: CSSProperties
+    backgroundOnClick?: () => void
 
-    width: number;
-    height: number;
-    modalStyle?: CSSProperties;
-    modalOnClick?: () => void;
+    width: number
+    height: number
+    modalStyle?: CSSProperties
+    modalOnClick?: () => void
 
     show: boolean
 }
 
-const Modal: React.FC<IModal> = (
-    {
-        enableBackground,
-        backgroundStyle,
-        backgroundOnClick = () => {},
+const Modal: React.FC<IModal> = ({
+    enableBackground,
+    backgroundStyle,
+    backgroundOnClick = () => {},
 
-        width,
-        height,
-        modalStyle,
-        modalOnClick = () => {},
+    width,
+    height,
+    modalStyle,
+    modalOnClick = () => {},
 
-        show,
-        children,
-    }
-) => {
-    const top = `calc(50vh - ${height / 2}px)`;
-    const left = `calc(50vw - ${width / 2}px)`;
+    show,
+    children,
+}) => {
+    const top = `calc(50vh - ${height / 2}px)`
+    const left = `calc(50vw - ${width / 2}px)`
 
-    if (!show) return null;
+    if (!show) return null
 
-    return(
+    return (
         <>
-            {enableBackground && <div
-                style={{
-                    position: 'fixed',
-                    top: '0px',
-                    left: '0px',
-                    width: '100vw',
-                    height: '100vh',
+            {enableBackground && (
+                <div
+                    style={{
+                        position: 'fixed',
+                        top: '0px',
+                        left: '0px',
+                        width: '100vw',
+                        height: '100vh',
 
-                    background: 'black',
-                    opacity: 0.90,
-                    zIndex: 20,
+                        background: 'black',
+                        opacity: 0.9,
+                        zIndex: 20,
 
-                    ...backgroundStyle,
-                }}
-                onClick={backgroundOnClick}
-            />}
+                        ...backgroundStyle,
+                    }}
+                    onClick={backgroundOnClick}
+                />
+            )}
             <div
                 style={{
                     position: 'fixed',
@@ -73,7 +73,7 @@ const Modal: React.FC<IModal> = (
                 {children}
             </div>
         </>
-    );
-};
+    )
+}
 
-export default Modal;
+export default Modal

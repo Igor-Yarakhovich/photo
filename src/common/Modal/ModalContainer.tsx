@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
-import Modal from "./Modal";
+import React, { useState } from 'react'
+import Modal from './Modal'
 
 const ModalContainer: React.FC = () => {
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState(false)
 
     return (
         <>
@@ -10,7 +10,6 @@ const ModalContainer: React.FC = () => {
             <Modal
                 enableBackground={true}
                 backgroundOnClick={() => setShow(false)}
-
                 width={300}
                 height={200}
                 // modalOnClick={() => setShow(false)}
@@ -21,7 +20,7 @@ const ModalContainer: React.FC = () => {
                 <button onClick={() => setShow(false)}>Close</button>
             </Modal>
         </>
-    );
-};
+    )
+}
 
-export default ModalContainer;
+export default ModalContainer
